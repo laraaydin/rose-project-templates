@@ -26,7 +26,7 @@ $(TRANSLATOR): $(TRANSLATOR_SOURCE)
 
 # test the translator for atomic operations
 check: $(TRANSLATOR)
-	./$(TRANSLATOR) -c -I. -I$(ROSE_INSTALL)/include $(TESTCODE)
+	./$(TRANSLATOR) -c -std=c++11 -I. -I$(ROSE_INSTALLATION)/include $(TESTCODE)
 
 clean:
 	rm -rf $(TRANSLATOR) *.o rose_* *.dot

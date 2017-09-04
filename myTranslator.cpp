@@ -1,9 +1,4 @@
-// ROSE translator example: identity translator.
-//
-// No AST manipulations, just a simple translation:
-//
-//    input_code > ROSE AST > output_code
-
+// identityTranslator clone
 #include <rose.h>
 
 int main (int argc, char** argv)
@@ -20,4 +15,3 @@ int main (int argc, char** argv)
     // desired backend compiler
     return backend(project);
 }
-
