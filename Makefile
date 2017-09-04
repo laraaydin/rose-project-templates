@@ -6,9 +6,12 @@ LIBDIRS  = $(shell $(ROSE_INSTALLATION)/bin/rose-config libdirs)
 LDFLAGS  = $(shell $(ROSE_INSTALLATION)/bin/rose-config ldflags) -L. \
            $(addprefix -Wl$(comma)-rpath -Wl$(comma), $(subst :, , $(LIBDIRS)))
 
-## Your translator
+## Translator
 TRANSLATOR=myTranslator
 TRANSLATOR_SOURCE=$(TRANSLATOR).cpp
+
+## Input testcode for translator
+TESTCODE=atomicCheck.cpp
 
 #-------------------------------------------------------------
 # Makefile Targets
@@ -17,10 +20,13 @@ TRANSLATOR_SOURCE=$(TRANSLATOR).cpp
 all: $(TRANSLATOR)
 
 # compile the translator and generate an executable
-# -g is recommended to be used by default to enable debugging your code
+# -g -> to be used by default to enable debugging code
 $(TRANSLATOR): $(TRANSLATOR_SOURCE)
 	$(CXX) -g $(TRANSLATOR_SOURCE) $(CPPFLAGS) $(LDFLAGS) -o $(TRANSLATOR)
 
+# test the translator for atomic operations
+check: $(TRANSLATOR)
+	./$(TRANSLATOR) -c -I. -I$(ROSE_INSTALL)/include $(TESTCODE)
 
 clean:
 	rm -rf $(TRANSLATOR) *.o rose_* *.dot
